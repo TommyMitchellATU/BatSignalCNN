@@ -11,13 +11,13 @@ UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Load the model
-model = load_model(r'C:\BatSignal\batsignal\CNNUsingTensorflow\Model\my_model.h5')
+# model = load_model(r'C:\BatSignal\batsignal\OutputModel\my_model.h5')
 
 # Define a fixed size for your spectrograms
-fixed_size = (640, 640)
+# fixed_size = (640, 640)
 
 # Define your label dictionary
-label_dict = {0: 'NYCLEI', 1: 'PIPPIP'}
+# label_dict = {0: 'NYCLEI', 1: 'PIPPIP'}
 
 @app.route('/')
 def upload_form():

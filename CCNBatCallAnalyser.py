@@ -85,7 +85,7 @@ model.add(Dense(len(label_dict), activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # Train the model
-model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=10, batch_size=32)
+model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=4, batch_size=32)
 
 # Save the model
 model.save(r'C:\BatSignal\OutputModel.h5')
