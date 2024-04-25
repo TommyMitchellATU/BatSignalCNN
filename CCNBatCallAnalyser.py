@@ -6,9 +6,13 @@ from sklearn.model_selection import train_test_split
 from keras.utils import to_categorical
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
+import matplotlib.pyplot as plt
 
 # Directory where your .wav files are located
-wav_dir = r'C:\BatSignal\RawBatData'
+wav_dir = r'C:\BatSignal\BatData'
+
+# Define a directory to save the spectrograms
+spectrogram_dir = r'C:\BatSignal\Spectrogram'
 
 # List to hold spectrograms and labels
 spectrograms = []
@@ -18,9 +22,13 @@ labels = []
 fixed_size = (640, 640)
 
 # Loop over all directories in the parent directory
-for species_dir in ['NYCLEI', 'Non-NYCLEI']:
+for species_dir in ['Parsed_Capuchinbird_Clips', 'Parsed_Not_Capuchinbird_Clips']:
     # Define the subdirectory where .wav files are located
-    wav_subdir = os.path.join(wav_dir, species_dir, species_dir + ' WAV')
+    wav_subdir = os.path.join('NonBatCall', species_dir)
+
+    # Create a directory for the spectrogram images of this species
+    # spectrogram_dir_species = os.path.join(spectrogram_dir, species_dir)
+    # os.makedirs(spectrogram_dir_species, exist_ok=True)
 
     # Loop over all files in the subdirectory
     for filename in os.listdir(wav_subdir):
@@ -40,6 +48,11 @@ for species_dir in ['NYCLEI', 'Non-NYCLEI']:
 
             # Add species to labels list
             labels.append(species_dir)
+
+            # Save spectrogram as an image
+            # plt.imshow(spectrogram, cmap='inferno')
+            # plt.axis('off')
+            # plt.savefig(os.path.join(spectrogram_dir_species, f'{filename}.png'))
 
             print(f'{filename} converted to spectrogram.')
 
@@ -85,7 +98,7 @@ model.add(Dense(len(label_dict), activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # Train the model
-model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=4, batch_size=32)
+model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=10, batch_size=32)
 
 # Save the model
-model.save(r'C:\BatSignal\OutputModel.h5')
+model.save(r'C:\BatSignal\OutputModelBirdCall10Epoch.h5')

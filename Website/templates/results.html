@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Results</h1>
+
+<p>Confidence - NON-CAPUCHINBIRD: {{ confidence_NONCAPUCHINBIRD }}%, CAPUCHINBIRD: {{ confidence_CAPUCHINBIRD }}%</p>
+
+<label for="capuchinbird">CAPUCHINBIRD: </label>
+<meter id="capuchinbird" value="{{ confidence_CAPUCHINBIRD }}" min="0" max="100">{{ confidence_CAPUCHINBIRD }}%</meter>
+
+<label for="noncapuchinbird">NON-CAPUCHINBIRD: </label>
+<meter id="noncapuchinbird" value="{{ confidence_NONCAPUCHINBIRD }}" min="0" max="100">{{ confidence_NONCAPUCHINBIRD }}%</meter>
+
+</body>
+</html>

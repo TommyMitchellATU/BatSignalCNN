@@ -11,13 +11,13 @@ UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Load the model
-# model = load_model(r'C:\BatSignal\batsignal\OutputModel\my_model.h5')
+model = load_model(r'C:\BatSignal\OutputModel\OutputModelBirdCall10Epoch.h5')
 
 # Define a fixed size for your spectrograms
-# fixed_size = (640, 640)
+fixed_size = (640, 640)
 
 # Define your label dictionary
-# label_dict = {0: 'NYCLEI', 1: 'PIPPIP'}
+label_dict = {0: 'Non-Capuchinbird', 1: 'Capuchinbird'}
 
 @app.route('/')
 def upload_form():
@@ -58,13 +58,13 @@ def upload_file():
         y_pred = model.predict(spectrogram)
 
         # Get confidence percentages
-        confidence_NYCLEI = y_pred[0][0] * 100
+        confidence_NONCAPUCHINBIRD = y_pred[0][0] * 100
         if len(y_pred[0]) > 1:
-            confidence_PIPPIP = y_pred[0][1] * 100
+            confidence_CAPUCHINBIRD = y_pred[0][1] * 100
         else:
-            confidence_PIPPIP = 0
+            confidence_CAPUCHINBIRD = 0
 
-        return f' Confidence - NYCLEI: {confidence_NYCLEI}%, PIPPIP: {confidence_PIPPIP}%'
+        return render_template('results.html', confidence_NONCAPUCHINBIRD=confidence_NONCAPUCHINBIRD, confidence_CAPUCHINBIRD=confidence_CAPUCHINBIRD)
     else:
         return 'Invalid file format'
 
